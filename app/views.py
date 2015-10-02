@@ -33,32 +33,37 @@ def index():
 def get_yelpid(local_id):
     if local_id.find("Kenneth Akizuki")>-1: 
       yelp_id = 'kenneth-akizuki-md-san-francisco'
-      yelpimg='"static/img/Kenneth_Akizuki.jpg"'
-      insight = "Topic Highlight:  Topics involving 'knees' come up frequently. If that's an injury you have too, you might want to read up on this doctor."
-      #bodyimg='"static/img/knee.jpg"'
+      #yelpimg='"static/img/Kenneth_Akizuki.jpg"'
+      yelpimg='"static/img/knee.jpg"'
+      insight = "Topics involving 'knees' and 'hips' come up frequently. If that's an injury you have too, you might want to read up on this doctor."
+      myrev1 = "Topic17_RR1.txt"
+      
 
     if local_id.find("Jon Dickinson")>-1: 
       yelp_id = 'jon-dickinson-md-san-francisco'
       yelpimg='"static/img/Jon_Dickinson.jpg"'
-      insight = "Topic Highlight:  This doctor's patients comment often about his hip surgeries."
+      insight = "This doctor's patients comment often about his hip surgeries."
+      myrev1 = "Topic22_RR1.txt"
       #bodyimg='"static/img/hip.jpg"'
 
     if local_id.find("Saxena Amol")>-1: 
       yelp_id = 'saxena-amol-dpm-palo-alto'
-      yelpimg='"static/img/injection2.jpg"'
-      insight = "Topic Highlight:  His patients are talking a lot about medical injections. Find out more below."
+      yelpimg='"static/img/Saxena_Amol.jpg"'
+      insight = "This doctor's patients may be feeling rushed. They talk a lot about the number of minutes he spent with them."
+      myrev1 = "BID588_Topic11_RID23362.txt"
 
     if local_id.find("Scott M. Taylor")>-1: 
       yelp_id = 'scott-m-taylor-md-oakland'
       yelpimg='"static/img/Taylor.jpg"'
-      insight = "Topic Highlight:  Time-management is a hot topic - read our selected reviews to find out more."
+      insight = "His patients are talking a lot about medical injections. Find out more below."
+      myrev1 = "BID427_Topic16_RID22088.txt"
 
     if local_id.find("Gordon A. Brody")>-1: 
       yelp_id = 'gordon-a-brody-md-redwood-city'
       yelpimg='"static/img/injection.jpg"'
-      insight = "Topic Highlight:  Yelpers have a lot to say about this doctor's injections."
-
-    return [yelp_id, yelpimg, insight]
+      insight = "Yelpers have a lot to say about this doctor's injections."
+      myrev1 = "BID566_Topic16_RID23137.txt"
+    return [yelp_id, yelpimg, insight, myrev1]
 
 def get_reviews(filename):
     with open(filename, "r") as text_file:
@@ -70,20 +75,20 @@ def get_reviews(filename):
 def output():
 
   # Load Dataframes
-  bid_df = pd.read_pickle('bid_tmeans.p')#index of this df is the bid, but can't be indexed by 'BID'
+  #bid_df = pd.read_pickle('bid_tmeans.p')#index of this df is the bid, but can't be indexed by 'BID'
   bid_topic_word_df = pd.read_pickle('bid_topic_word_df.p')
+  Represent_Revs = pd.read_pickle('Represent_Revs.p')
   
   # Initialize defaults
   bstars=''
   insight='No insights yet.'
   keytopic='None'
-  myrev1=''
-  myrev2=''
+  myrev1='No Review yet'
 
   # Given input from Index.html dropdown menu
   # Obtain yelp_id-->BID, image, and insight
   local_id = request.args.get("yelp_id")
-  [yelp_id, yelpimg, insight] = get_yelpid(local_id) #Map drop-down input to yelp_id and yelpimg (the doctor's picture)
+  [yelp_id, yelpimg, insight, myrev1] = get_yelpid(local_id) #Map drop-down input to yelp_id and yelpimg (the doctor's picture)
   bid = get_bid(yelp_id)# SQL query to get bid
   print "BID: ",bid
 
@@ -93,7 +98,9 @@ def output():
   # Get KeyTopic (capitalize the first letter)
   f = lambda word: word[0].upper()+word[1:]
   bid_topic_word_df.Word = bid_topic_word_df.Word.apply(f)
-  keytopic = bid_topic_word_df.Word[bid_topic_word_df.BID==353].values[0]
+  keytopic = bid_topic_word_df.Word[bid_topic_word_df.BID==bid].values[0]
+  if keytopic == "Minute": keytopic = "Time"
+  if bid == 309: keytopic = "Knee/Hip"
 
   # Query SQL for RID, BID, RSTARS
   star_df = get_rstars()#queries MySQL for data
@@ -112,23 +119,15 @@ def output():
   print 'BID: ',bid
   star_names = ['5 Stars','4 Stars','3 Stars','2 Stars','1 Star']
 
-  
-  # Provide reviews for the first two
-  if local_id.find("Kenneth Akizuki")>-1: 
-    #Topic 17 (just called two in html)
-    myrev1 = get_reviews("Topic17_RR1.txt")
-    myrev2 = get_reviews("Topic17_RR2.txt")
-    print type(myrev1)
-    print myrev1
+  # SQL query for review text
+  # myRID = Represent_Revs.RID[Represent_Revs.BID==bid].values[0]
+  # myReview = get_Review(myRID)
+  # print myReview
+  #path = "'static/img/"
+  myReview = get_reviews(myrev1)
 
-  if local_id.find("Jon Dickinson")>-1: 
-    #Topic 22
-    myrev1 = get_reviews("Topic22_RR1.txt")
-    myrev2 = get_reviews("Topic22_RR2.txt")
-    print myrev1
-
-  return render_template("output.html", local_id=local_id, yelpimg=yelpimg, insight = insight, myrev1=myrev1[13:], star_count=bid_stars, star_names=star_names,
-    keytopic=keytopic,bstars=bstars)
+  return render_template("output.html", local_id=local_id, yelpimg=yelpimg, insight = insight, 
+    star_count=bid_stars, keytopic=keytopic, bstars=bstars, myReview=myReview)
 
 
 @app.route("/graph")
@@ -163,6 +162,13 @@ def get_bstars(bid):
     print type(bstars[0])
     print bstars[0]
     return bstars[0]
+
+# def get_Review(myRID):
+#     sql = 'SELECT comment FROM ortho.review WHERE id='+str(myRID)+';' 
+#     print "SQL = ",sql
+#     rows = ka.query_SQL(sql)# extracts unique yelp_ids
+#     myReview = np.array(rows)[0]
+#     return myReview[0]
 
 @app.route("/about")
 def validate():

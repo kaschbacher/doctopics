@@ -65,15 +65,17 @@
     <div class="container">
       <div class="row">
         <table>
-          <th style="padding-left: 15px;"><img src= {{ yelpimg|safe }} class="img-responsive" alt="" height="200" width="220"></th>
+          <th style="padding-left: 15px;"><img src= {{ yelpimg|safe }} class="img-responsive" alt="" height="250" width="200"></th>
 
-          <th style="padding-left: 15px;"><div id="starplot" style="min-width: 400px; max-width: 800px; height: 295px; margin: 0 auto" alt=200px; 150px ></div></th>
+          <th style="padding-left: 15px;"><div id="starplot" style="min-width: 400px; max-width: 800px; height: 250px; margin: 0 auto" alt=200px; 150px ></div></th>
           <th style="padding-left: 10px;"></th>
 
-          <th><table class="table table-hover">
+          <th style="padding-top: 70px;"><table class="table table-hover">
               <tr><h3>Main Topic: {{ keytopic|safe }}</h3><tr>
               <tr><h4>Overall Star Average:  {{ bstars }}</h4><tr>
-              <tr><h4 style="padding-top: 30px">{{ insight|safe }}</h4></tr>
+              <tr><h4></h4></tr>
+              <tr><h4>Topic Highlight:</h4></tr>
+              <tr><p>{{ insight|safe }}</p</tr>
               <tr><h4 style="padding-top: 150px"></h4></tr>
           </table></th>
         </table>
@@ -89,7 +91,7 @@
       <div class="row">
           <table class= "table table-hover">
             <tr><th style="padding-top: 10px;">Representative Review #1:</th></tr>
-            <tr><th>{{ myrev1 }}</th></tr>
+            <tr><th>{{ myReview|safe }}</th></tr>
           </table>
       </div>
     </div>
