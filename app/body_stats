@@ -1,0 +1,48 @@
+myword:  knee .  topic:  2 .  word column:  0
+BID
+553    0.556416
+384    0.474561
+396    0.388731
+Name: 2, dtype: float64 
+
+myword:  hip .  topic:  0 .  word column:  0
+BID
+409    0.574580
+608    0.487607
+546    0.478030
+Name: 0, dtype: float64 
+
+myword:  wrist .  topic:  19 .  word column:  0
+BID
+611    0.494630
+483    0.493379
+390    0.449710
+Name: 19, dtype: float64 
+
+myword:  injection .  topic:  16 .  word column:  4
+BID
+577    0.966667
+363    0.163379
+325    0.154822
+Name: 16, dtype: float64 
+
+myword:  mri .  topic:  3 .  word column:  1
+BID
+387    0.520715
+586    0.247783
+511    0.246338
+Name: 3, dtype: float64 
+
+myword:  acl .  topic:  24 .  word column:  2
+BID
+404    0.961333
+406    0.912121
+385    0.879167
+Name: 24, dtype: float64 
+
+myword:  best .  topic:  21 .  word column:  0
+BID
+578    0.981410
+549    0.861905
+603    0.493556
+Name: 21, dtype: float64 

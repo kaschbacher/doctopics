@@ -1,0 +1,7 @@
+data: {{var|tojson|safe}}
+
+                {% for words in words_lol[:5] %}
+                <td>{{loop.index0+1}}</td><td>{{words[1]}}</td><td>{{words[2]}}
+                </td><td>{{words[3]}}</td><td>{{words[4]}}</td><td>{{words[5]}}</td>
+              </tr>
+                {% endfor %}

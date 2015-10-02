@@ -1,0 +1,13 @@
+      <div class="col-lg-12">
+          <table class= "table table-hover">
+              <tr>{% for words in words_lol[:1] %} 
+                <td>For Example, for Topic 1:</td><td>{{words[1]}}</td><td>{{words[2]}}
+                </td><td>{{words[3]}}</td><td>{{words[4]}}</td><td>{{words[5]}}</td>
+                <th style="padding-right: 600px;"</th>
+              </tr>
+              {% endfor %}
+          </table>
+      </div>
+
+
+      <a class="navbar-brand" href="/validate">Validate</a>

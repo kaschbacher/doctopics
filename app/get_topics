@@ -1,0 +1,6 @@
+topic_word_df = pd.read_pickle('topic_word_df.p')
+
+  # Get the topic doctors for each doctor/ Not really using this anymore
+  doc_topics = get_topics(bid, bid_df)#returns series of 10 topics in sorted order
+  selected = doc_topics.index
+  print 'doc topics: ',doc_topics

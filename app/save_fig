@@ -1,0 +1,7 @@
+
+def save_fig(name, fig):
+    path = 'app/static/img/'
+    filename = name+'.png'
+    filepath = path+filename
+    print filepath
+    fig.savefig(filepath)

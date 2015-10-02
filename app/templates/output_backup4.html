@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title></title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="starter-template.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/graph">Visualize LDA</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <a class="navbar-brand" href="/index">Select Another Doctor</a>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <br>
+
+    <div class="container">
+    <div class="starter-template" style="padding-top: 60px;">
+        <table><tr>
+          <th><img src= "static/img/Yelp_Logo.png" class="img-responsive" alt="" 
+            height="204px" width="99px"></th>
+          <th style="padding-left: 20px;">
+          <h2>{{local_id}}:  What's the Scoop?</h2></th>
+        </tr>
+      </table>
+      <p class="lead"><br>Using Topic Analysis to Capture Patient Preferences & Opinions obout local Orthopedidic Surgeons.</p>
+
+    </div>
+    </div> <!-- /.container-->
+
+    <div class="container">
+      <div class="row">
+        <table><tr>
+          <th style="padding-left: 15px;"><img src= {{ yelpimg|safe }} class="img-responsive" alt="" height="200" width="220"></th>
+          <th style="padding-left: 30px;"><img src= {{ topicimg|safe }} class="img-responsive" alt="" height="350" width="350"></th>
+          <th><table class="table table-hover">
+              <tr><th>Top Topics</th></tr>
+              <tr>
+                {% for words in words_lol[:5] %}
+                <td>{{loop.index0+1}}</td><td>{{words[1]}}</td><td>{{words[2]}}
+                </td><td>{{words[3]}}</td><td>{{words[4]}}</td><td>{{words[5]}}</td>
+              </tr>
+                {% endfor %}
+            </table></th>
+        </tr></table>
+      </div>
+    </div><!-- /.container -->
+
+    <div class="container" style="padding-top: 50px;">
+      <h4>Representative Reviews by Topic.  A Tool for investigating the validity of the model. </h4>
+      <h5>Note:  'Representative' is defined as the reviews with the highest score on a given topic).</h4>
+        <br></br>
+      <h4>{{ insight|safe }}</h4>
+    </div>
+    <div class="container">
+      <div class="row">
+          <table class= "table table-hover">
+            <tr><th style="padding-top: 10px;">Representative Review #1:</th></tr>
+            <tr><th>{{ myrev1 }}</th></tr>
+          </table>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+          <table class= "table table-hover">
+            <tr><th style="padding-top: 50px;">Representative Review #2:</th></tr>
+            <tr><th>{{ myrev2 }}</th></tr>
+            <tr><th></th></tr>
+          </table>
+      </div>
+    </div>
+        <div class="container">
+      <div class="row">
+          <table>
+            <tr><th style="padding-top: 50px;"></th></tr>
+            <tr><th></th></tr>
+            </tr>
+          </table>
+      </div>
+    </div>
+      <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+
+      <script src="static/js/bootstrap.min.js"></script>
+
+    <div>
+    </div><!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+  </body>
+</html>
