@@ -5,7 +5,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import json 
 # KA files
-import doctor_graph as doc
 import KAsql2 as ka
 
 
@@ -36,14 +35,13 @@ def get_yelpid(local_id):
       #yelpimg='"static/img/Kenneth_Akizuki.jpg"'
       yelpimg='"static/img/knee.jpg"'
       insight = "Topics involving 'knees' and 'hips' come up frequently. If that's an injury you have too, you might want to read up on this doctor."
-      myrev1 = "Topic17_RR1.txt"
-      
+      myrev1 = "BID309_Topic17_RID20609.txt"
 
     if local_id.find("Jon Dickinson")>-1: 
       yelp_id = 'jon-dickinson-md-san-francisco'
       yelpimg='"static/img/Jon_Dickinson.jpg"'
       insight = "This doctor's patients comment often about his hip surgeries."
-      myrev1 = "Topic22_RR1.txt"
+      myrev1 = "BID319_Topic22_RID20802.txt"
       #bodyimg='"static/img/hip.jpg"'
 
     if local_id.find("Saxena Amol")>-1: 
