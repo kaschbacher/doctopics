@@ -1,1 +1,5 @@
 Button.docx
+oauth_credentials.txt
+*.p
+*.pyc
+APIkeys.py
