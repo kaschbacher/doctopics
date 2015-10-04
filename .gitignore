@@ -3,3 +3,4 @@ oauth_credentials.txt
 *.p
 *.pyc
 APIkeys.py
+views.pyc

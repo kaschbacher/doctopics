@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import json 
 # KA files
 import KAsql2 as ka
+import cPickle as pickle
 
 
 # ps auxwww | grep mysql
@@ -72,10 +73,24 @@ def get_reviews(filename):
 @app.route("/output")
 def output():
 
-  # Load Dataframes
+  # Load Dataframes - AWS can't read pickles - outdated pandas version
   #bid_df = pd.read_pickle('bid_tmeans.p')#index of this df is the bid, but can't be indexed by 'BID'
-  bid_topic_word_df = pd.read_pickle('bid_topic_word_df.p')
-  Represent_Revs = pd.read_pickle('Represent_Revs.p')
+  #bid_topic_word_df = pd.read_pickle('bid_topic_word_df.p')
+  #Represent_Revs = pd.read_pickle('Represent_Revs.p')
+
+  # work-around
+  f=open('btw_pickled','r')
+  output = eval(f.read())
+  btw = pickle.loads(output)
+  f.close()
+  bid_topic_word_df = pd.DataFrame(btw)
+
+  f=open('rr_pickled','r')
+  output = eval(f.read())
+  rr = pickle.loads(output)
+  f.close()
+  Represent_Revs = pd.DataFrame(rr)
+  
   
   # Initialize defaults
   bstars=''
