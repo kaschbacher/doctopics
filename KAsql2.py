@@ -4,7 +4,10 @@ def query_SQL(sql):
     con = False
     rows = []
     try:
+        # Local
         con = pymysql.connect(host='localhost', port=3307, user='root', passwd='', db='ortho')
+        # AWS
+        #con = pymysql.connect(host='localhost', port=3306, user='root', passwd='', db='ortho')
         with con:
             cur = con.cursor()
             database = 'USE ortho;'
