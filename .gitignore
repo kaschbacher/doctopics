@@ -4,3 +4,5 @@ oauth_credentials.txt
 *.pyc
 APIkeys.py
 views.pyc
+run.py
+KAsql2.py

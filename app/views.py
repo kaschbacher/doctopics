@@ -146,8 +146,14 @@ def output():
 @app.route("/graph")
 def vis_figure():
   #vis_id = request.args.get("vis_b	utton")
-
   return render_template("vis_fig_30t_pos.html")
+
+@app.route("/slides")
+def slides():
+  print 'inside slides'
+  slide_url = "https://docs.google.com/presentation/d/1EqePwqvQakrtjYn2rWd_EXTdg1XfsFMbf-MXwJRyJtA/edit?usp=sharing"
+  return render_template(slide_url)
+
 
 # import KAsql2 as ka
 def get_rstars():
@@ -183,7 +189,3 @@ def get_bstars(bid):
 #     myReview = np.array(rows)[0]
 #     return myReview[0]
 
-@app.route("/about")
-def validate():
-  kneeimg='"static/img/bid10 mohammad.jpg"'#remove later
-  return render_template("validate.html",kneeimg = kneeimg)
