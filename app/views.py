@@ -43,7 +43,6 @@ def get_yelpid(local_id):
       yelpimg='"static/img/Jon_Dickinson.jpg"'
       insight = "This doctor's patients comment often about his hip surgeries."
       myrev1 = "BID319_Topic22_RID20802.txt"
-      #bodyimg='"static/img/hip.jpg"'
 
     if local_id.find("Saxena Amol")>-1: 
       yelp_id = 'saxena-amol-dpm-palo-alto'
@@ -73,11 +72,7 @@ def get_reviews(filename):
 @app.route("/output")
 def output():
 
-  # Load Dataframes - AWS can't read pickles - outdated pandas version
-  #bid_df = pd.read_pickle('bid_tmeans.p')#index of this df is the bid, but can't be indexed by 'BID'
-  #bid_topic_word_df = pd.read_pickle('bid_topic_word_df.p')
-  #Represent_Revs = pd.read_pickle('Represent_Revs.p')
-
+  # AWS can't read pickles - outdated pandas version
   # work-around
   f=open('btw_pickled','r')
   output = eval(f.read())
@@ -121,7 +116,6 @@ def output():
   doc_stars= star_df.rstars[star_df.BID==bid]#series
   doc_stars.sort('rstars',ascending=False)
   star_list = doc_stars.tolist()
-  #print star_list#debug
 
   # DATA FOR STAR GRAPH
   #make dict of counts for each star-type
@@ -132,11 +126,6 @@ def output():
   print 'BID: ',bid
   star_names = ['5 Stars','4 Stars','3 Stars','2 Stars','1 Star']
 
-  # SQL query for review text
-  # myRID = Represent_Revs.RID[Represent_Revs.BID==bid].values[0]
-  # myReview = get_Review(myRID)
-  # print myReview
-  #path = "'static/img/"
   myReview = get_reviews(myrev1)
 
   return render_template("output.html", local_id=local_id, yelpimg=yelpimg, insight = insight, 
@@ -145,7 +134,6 @@ def output():
 
 @app.route("/graph")
 def vis_figure():
-  #vis_id = request.args.get("vis_b	utton")
   return render_template("vis_fig_30t_pos.html")
 
 @app.route("/slides")
@@ -181,11 +169,4 @@ def get_bstars(bid):
     print type(bstars[0])
     print bstars[0]
     return bstars[0]
-
-# def get_Review(myRID):
-#     sql = 'SELECT comment FROM ortho.review WHERE id='+str(myRID)+';' 
-#     print "SQL = ",sql
-#     rows = ka.query_SQL(sql)# extracts unique yelp_ids
-#     myReview = np.array(rows)[0]
-#     return myReview[0]
 

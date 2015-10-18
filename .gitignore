@@ -6,3 +6,14 @@ APIkeys.py
 views.pyc
 run.py
 KAsql2.py
+.DS_Store
+*.pyc
+bid_df.p
+bid_topic_word_df
+Represent_Revs.p
+Review_topics_df.p
+lda_ortho_30t_pos.p
+topic_word_df.p
+bid_tmeans.p
+btw_pickled
+rr_pickled
